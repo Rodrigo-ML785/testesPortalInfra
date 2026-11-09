@@ -27,11 +27,22 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
+  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh; /* Adapta-se à barra de endereço retrátil dos navegadores mobile */
+  display: flex;
+  flex-direction: column;
   font-family: "Inter", Arial, Helvetica, sans-serif;
   background: var(--bg-color);
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 button {
@@ -51,6 +62,7 @@ a {
 ========================= */
 .header {
   height: 80px;
+  flex-shrink: 0;
   background: var(--white);
   display: flex;
   align-items: center;
@@ -72,8 +84,7 @@ a {
 }
 
 .logo span {
-  background: var(--primary);
-  color: var(--white);
+  background: var(--primary);  color: var(--white);
   padding: 6px 10px;
   border-radius: var(--radius-sm);
   margin-right: 6px;
@@ -485,6 +496,8 @@ nav .active::after {
    FOOTER
 ========================= */
 footer {
+  margin-top: auto;
+  flex-shrink: 0;
   background: var(--white);
   border-top: 1px solid var(--border-light);
   padding: 40px 8%;
@@ -503,24 +516,27 @@ footer .logo span {
    PÁGINAS DE AUTH / USER MENU
 ========================= */
 .auth-page {
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 80px - 100px);
-  padding: 60px 5%;
+  padding: 40px 20px;
   background: var(--bg-color);
+  width: 100%;
 }
+
 .auth-container {
   width: 100%;
-  max-width: 720px; /* Aumentado para o grid de cadastro caber perfeitamente */
+  max-width: 720px;
   margin: 0 auto;
 }
 
-/* O Login e Recuperar continuam pequenos e centralizados */
+/* O Login e Recuperar continuam centralizados */
 #form-login,
 #form-recuperar,
 #area-verificacao {
-  max-width: 420px;
+  max-width: 440px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -530,11 +546,11 @@ footer .logo span {
 
 #cadastro-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: 20px;
 }
 
-/* Elementos do cadastro que ocupam a linha inteira (as duas colunas) */
+/* Elementos do cadastro que ocupam a linha inteira */
 #cadastro-form > .input-group:first-child,
 #cadastro-form > .input-group:nth-child(2),
 #btn-enviar-codigo,
@@ -548,48 +564,57 @@ footer .logo span {
   border-radius: var(--radius-lg);
   padding: 45px 40px;
   box-shadow: var(--shadow-lg);
+  width: 100%;
 }
+
 .auth-header {
   text-align: center;
   margin-bottom: 35px;
 }
+
 .auth-header h2 {
   font-size: 26px;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 10px;
 }
+
 .auth-header p {
   font-size: 15px;
   color: var(--text-muted);
 }
+
 .input-group {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
+
 .input-group label {
   font-size: 14px;
   font-weight: 600;
   color: var(--text-dark);
   margin-bottom: 8px;
 }
+
 .input-group input {
   width: 100%;
   font-family: inherit;
   padding: 14px 16px;
-  font-size: 15px;
+  font-size: 16px; /* 16px evita zoom automático indesejado no Safari iOS ao focar */
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   outline: none;
   transition: 0.2s;
   background: #f8fafc;
 }
+
 .input-group input:focus {
   border-color: var(--primary);
   background: var(--white);
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
+
 .auth-options {
   display: flex;
   justify-content: space-between;
@@ -598,16 +623,19 @@ footer .logo span {
   margin-bottom: 30px;
   color: var(--text-muted);
 }
+
 .forgot-password {
   color: var(--primary);
   font-weight: 600;
 }
+
 .btn-full {
   width: 100%;
   font-size: 16px;
   padding: 16px;
   border-radius: var(--radius-sm);
 }
+
 .auth-footer {
   text-align: center;
   margin-top: 30px;
@@ -616,6 +644,7 @@ footer .logo span {
   border-top: 1px solid var(--border-light);
   padding-top: 30px;
 }
+
 .btn-link {
   background: none;
   color: var(--primary);
@@ -623,20 +652,25 @@ footer .logo span {
   font-size: 15px;
   padding: 0;
 }
+
 .btn-link:hover {
   text-decoration: underline;
 }
+
 .input-row {
   display: flex;
   gap: 16px;
 }
+
 .input-row .input-group {
   flex: 1;
   min-width: 0;
 }
+
 .input-row .input-group:last-child {
   flex: 0 0 120px;
 }
+
 #cep-status {
   display: block;
   min-height: 1em;
@@ -644,32 +678,15 @@ footer .logo span {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+
 #cep-status[data-erro] {
   color: #ef4444;
-}
-#form-login,
-#form-recuperar,
-#area-verificacao {
-  max-width: 420px;
-  margin: 0 auto;
-}
-#form-cadastro {
-  padding: 40px;
-}
-#cadastro-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  column-gap: 20px;
-}
-#cadastro-form > .input-group:first-child,
-#cadastro-form > .input-group:nth-child(2),
-#btn-enviar-codigo {
-  grid-column: 1 / -1;
 }
 
 .user-menu {
   position: relative;
 }
+
 .user-menu-btn {
   display: flex;
   align-items: center;
@@ -684,14 +701,17 @@ footer .logo span {
   cursor: pointer;
   transition: 0.2s;
 }
+
 .user-menu-btn:hover {
   background: #f8fafc;
   border-color: #cbd5e1;
 }
+
 .seta-menu {
   font-size: 10px;
   color: var(--text-muted);
 }
+
 .user-dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -704,9 +724,11 @@ footer .logo span {
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
 }
+
 .user-dropdown[hidden] {
   display: none;
 }
+
 .user-dropdown a,
 .user-dropdown button {
   display: block;
@@ -723,16 +745,19 @@ footer .logo span {
   cursor: pointer;
   transition: 0.2s;
 }
+
 .user-dropdown a:hover {
   background: #f1f5f9;
   color: var(--primary);
 }
+
 .user-dropdown button {
   color: #ef4444;
   border-top: 1px solid var(--border-light);
   border-radius: 0 0 6px 6px;
   margin-top: 4px;
 }
+
 .user-dropdown button:hover {
   background: #fef2f2;
 }
@@ -743,8 +768,10 @@ footer .logo span {
 @media (max-width: 850px) {
   /* Header & Hero */
   .header {
+    height: 64px;
     padding: 0 5%;
   }
+
   nav {
     display: none;
   }
@@ -753,12 +780,14 @@ footer .logo span {
     padding: 50px 5% 70px;
     text-align: center;
   }
+
   .hero-text {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .hero h1 {
     font-size: 40px;
   }
@@ -768,6 +797,7 @@ footer .logo span {
     flex-direction: column;
     width: 100%;
   }
+
   .btn-primary,
   .btn-secondary {
     width: 100%;
@@ -787,14 +817,17 @@ footer .logo span {
   .complaints {
     padding: 20px 5% 40px;
   }
+
   .section-title {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
+
   .see-map {
     align-self: flex-start;
   }
+
   .map {
     height: 320px;
   }
@@ -812,6 +845,7 @@ footer .logo span {
     grid-column: 1;
     grid-row: 1;
   }
+
   .complaint-info {
     grid-column: 2;
     grid-row: 1;
@@ -837,11 +871,13 @@ footer .logo span {
     text-align: center;
     gap: 20px;
   }
+
   .cta .btn-primary {
     width: 100%;
   }
 
   footer {
+    padding: 28px 5%;
     flex-direction: column;
     gap: 15px;
     text-align: center;
@@ -849,19 +885,107 @@ footer .logo span {
 }
 
 @media (max-width: 600px) {
-  /* Telas ainda menores (Formulários) */
+  /* Layout do Login/Auth ocupando a maior parte da tela no celular */
+  .auth-page {
+    padding: 20px 14px;
+  }
+
+  .auth-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #form-login,
+  #form-recuperar,
+  #area-verificacao {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .auth-card {
+    width: 100%;
+    padding: 28px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .auth-header {
+    margin-bottom: 22px;
+  }
+
+  .auth-header h2 {
+    font-size: 22px;
+  }
+
+  .auth-header p {
+    font-size: 14px;
+  }
+
+  .input-group {
+    margin-bottom: 16px;
+  }
+
+  .input-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .input-group input {
+    padding: 13px 14px;
+    font-size: 16px;
+  }
+
+  .auth-options {
+    margin-bottom: 22px;
+    font-size: 13px;
+  }
+
+  .btn-full {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .auth-footer {
+    margin-top: 22px;
+    padding-top: 22px;
+    font-size: 14px;
+  }
+
+  /* Telas ainda menores (Formulários de cadastro) */
   #cadastro-form {
     grid-template-columns: 1fr;
   }
-  .auth-card {
-    padding: 30px 20px;
+
+  #form-cadastro {
+    padding: 28px 18px;
   }
+
   .input-row {
     flex-direction: column;
     gap: 0;
   }
+
   .input-row .input-group:last-child {
     flex: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-page {
+    padding: 14px 10px;
+  }
+
+  .auth-card {
+    padding: 22px 14px;
+  }
+
+  .auth-header h2 {
+    font-size: 20px;
+  }
+
+  .auth-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 }
 
@@ -878,8 +1002,11 @@ footer .logo span {
   border-radius: 20px;
   box-shadow: none;
   transition: 0.2s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .header .btn-secondary:hover {
@@ -887,8 +1014,4 @@ footer .logo span {
   color: var(--primary);
   border-color: #cbd5e1;
   transform: translateY(0);
-}
-.header .btn-secondary {
-    font-family: inherit;
-    cursor: pointer;
 }

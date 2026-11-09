@@ -13,11 +13,19 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="scriptlogin.js" defer></script>
+    <link rel="stylesheet" href="style.css?v=1.1" />
 
-
+    <!-- Script mínimo apenas para alternar visualmente entre telas nos testes -->
+    <script>
+      function toggleAuth(tela) {
+        var login = document.getElementById("form-login");
+        var cadastro = document.getElementById("form-cadastro");
+        var recuperar = document.getElementById("form-recuperar");
+        if (login) login.style.display = tela === "login" ? "block" : "none";
+        if (cadastro) cadastro.style.display = tela === "cadastro" ? "block" : "none";
+        if (recuperar) recuperar.style.display = tela === "recuperar" ? "block" : "none";
+      }
+    </script>
   </head>
   <body>
     <!-- CABEÇALHO -->
@@ -30,7 +38,7 @@
         <a href="#">Sobre</a>
       </nav>
       <!-- Botão Voltar (estilizado via CSS) -->
-      <a href="index.html"><button class="btn-secondary">Voltar</button></a>
+      <a href="index.html" class="btn-secondary">Voltar</a>
     </header>
 
     <!-- CONTEÚDO DE AUTENTICAÇÃO -->
